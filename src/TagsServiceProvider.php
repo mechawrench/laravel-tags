@@ -22,6 +22,13 @@ class TagsServiceProvider extends ServiceProvider
                 ], 'migrations');
             }
 
+            if (! class_exists('AlterTagsTable')) {
+                $timestamp = date('Y_m_d_His', time());
+                $this->publishes([
+                    __DIR__.'/../database/migrations/alter_tags_table.stub' => database_path('migrations/'.$timestamp.'_alter_tags_table.php'),
+                ], 'migrations');
+            }
+
             $this->publishes([
                 __DIR__.'/../config/tags.php' => config_path('tags.php'),
             ], 'config');

@@ -54,23 +54,19 @@ class Tag extends Model implements Sortable
 
     public static function findFromString(string $name, string $type = null, string $locale = null)
     {
-        $locale = $locale ?? app()->getLocale();
-
         return static::query()
-            ->whereRaw(DB::raw("JSON_EXTRACT(name, '\$.{$locale}') = '{$name}'"))
+            ->where("name", $name)
             ->where('type', $type)
             ->first();
     }
 
     protected static function findOrCreateFromString(string $name, string $type = null, string $locale = null): self
     {
-        $locale = $locale ?? app()->getLocale();
-
         $tag = static::findFromString($name, $type, $locale);
 
         if (! $tag) {
             $tag = static::create([
-                'name' => [$locale => $name],
+                'name' => $name,
                 'type' => $type,
             ]);
         }

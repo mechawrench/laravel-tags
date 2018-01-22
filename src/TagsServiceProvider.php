@@ -17,6 +17,9 @@ class TagsServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__.'/../database/migrations/create_tag_tables.php.stub' => database_path('migrations/'.$timestamp.'_create_tag_tables.php'),
                 ], 'migrations');
+                $this->publishes([
+                    __DIR__.'/../database/migrations/alter_tags_table.stub' => database_path('migrations/'.$timestamp.'_alter_tags_table.php'),
+                ], 'migrations');
             }
 
             $this->publishes([
